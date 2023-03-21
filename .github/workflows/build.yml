@@ -8,7 +8,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-22.04
-    container: ubuntu:22.04
+    container: alpine:3.15.7
     services:
       # Label used to access the service container
       postgres:
@@ -24,10 +24,11 @@ jobs:
           --health-timeout 5s
           --health-retries 5
     steps:
+    - run: apk add --no-cache git python3 postgre postgresql14-client
     - uses: actions/checkout@v3.4.0
-    - uses: actions/setup-python@v4.0.0
-      with:
-        python-version: '3.11'
+    #- uses: actions/setup-python@v4.0.0
+    #  with:
+    #    python-version: '3.11'
     - run: ./build.py -H postgres -f
     - uses: xresloader/upload-to-github-release@v1.0.0
       env:

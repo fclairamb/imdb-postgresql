@@ -25,6 +25,6 @@ alter table title_basics alter column endYear type int using endYear::int;
 alter table title_basics alter column runtimeMinutes type int using runtimeMinutes::int;
 alter table title_basics alter column genres type text[] using string_to_array(genres, ',');
 
-select * from title_basics;
+select * from title_basics limit 10;
 
 commit;

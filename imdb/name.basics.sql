@@ -10,7 +10,7 @@ create table name_basics (
     knownForTitles text
 );
 
-\copy name_basics from 'imdb/name.basics.tsv' delimiter e'\t' null as '\N' csv header;
+\copy name_basics from 'imdb/name.basics.tsv' delimiter e'\t' quote e'\b' null as '\N' csv header;
 
 alter table name_basics alter column nconst type int using substring(nconst, 3)::int;
 alter table name_basics rename column nconst to id;

@@ -14,7 +14,7 @@ create table title_basics (
     genres text
 );
 
-\copy title_basics from 'imdb/title.basics.tsv' delimiter e'\t' null as '\N' csv header;
+\copy title_basics from 'imdb/title.basics.tsv' delimiter e'\t' quote e'\b' null as '\N' csv header;
 
 alter table title_basics alter column tconst type int using substring(tconst, 3)::int;
 alter table title_basics rename column tconst to id;

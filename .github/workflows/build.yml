@@ -28,7 +28,7 @@ jobs:
       with:
         python-version: '3.11'
     - run: ./build.py -H postgres -f
-    - uses: xresloader/upload-to-github-release@v1
+    - uses: xresloader/upload-to-github-release@v1.0.0
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:

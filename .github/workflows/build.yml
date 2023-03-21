@@ -1,0 +1,37 @@
+name: Build
+
+on:
+  - push
+  - pull_request
+  - release
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    services:
+      # Label used to access the service container
+      postgres:
+        # Docker Hub image
+        image: postgres:14.0-alpine
+        # Provide the password for postgres
+        env:
+          POSTGRES_PASSWORD: postgres
+        # Set health checks to wait until postgres has started
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    steps:
+    - uses: actions/checkout@v3.4.0
+    - uses: actions/setup-python@v4.0.0
+      with:
+        python-version: '3.11'
+    - run: ./build.py -h postgres -f
+    - uses: xresloader/upload-to-github-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        file: "*.xz"
+        tags: true
+        draft: true

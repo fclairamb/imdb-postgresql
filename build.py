@@ -41,6 +41,9 @@ DATASETS=[
     'title.ratings'
 ]
 
+def system(cmd: str):
+    assert(os.system(cmd) == 0)
+
 os.makedirs(DIR, exist_ok=True)
 for dataset in DATASETS:
     sql_file = f'{DIR}/{dataset}.sql'
@@ -56,7 +59,7 @@ for dataset in DATASETS:
     logging.info("Downloading dataset: %s", dataset)
     # We're download the dataset into the data folder if it doesn't exist yet
     # We're using the wget command to download the dataset
-    assert(os.system(f'curl {url} -o {archive_name} && gzip -d {archive_name} && touch {complete_file}') == 0)
+    system(f'curl {url} -o {archive_name} && gzip -d {archive_name} && touch {complete_file}')
     logging.info("Downloaded dataset: %s", dataset)
 
 if FAST:
@@ -66,7 +69,7 @@ if FAST:
         if not os.path.exists(dataset_file) or os.path.exists(dataset_sample_file):
             continue
         logging.info("Creating a sample of the dataset: %s", dataset)
-        os.system(f'head -n 100 {dataset_file} > {dataset_sample_file} && cp {dataset_sample_file} {dataset_file}')
+        system(f'head -n 100 {dataset_file} > {dataset_sample_file} && cp {dataset_sample_file} {dataset_file}')
 
 
 for dataset in DATASETS:
@@ -76,5 +79,5 @@ for dataset in DATASETS:
 
     os.system(f'psql -f {sql_file} -U {PG_USER} -d {PG_DB} -h {PG_HOST} -p {PG_PORT}')
 
-os.system(f'pg_dump -U {PG_USER} -d {PG_DB} -h {PG_HOST} -p {PG_PORT} | xz > imdb.sql.xz')
-os.system('ls -lh imdb.sql.xz')
+system(f'pg_dump -U {PG_USER} -d {PG_DB} -h {PG_HOST} -p {PG_PORT} | xz > imdb.sql.xz')
+system('ls -lh imdb.sql.xz')

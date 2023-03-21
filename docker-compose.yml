@@ -1,0 +1,25 @@
+version: "3"
+networks:
+  overlay:
+services:
+  server:
+    container_name: pg-demo
+    #     image: postgres:14.6-alpine
+    image: postgres:14.6-alpine # ghcr.io/baosystems/postgis:14-3.3
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=postgres
+    # volumes:
+    #   - ./seed:/docker-entrypoint-initdb.d
+    #   - ./.pgdata:/var/lib/postgresql/data
+    #   - ./.run:/var/run/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    ports:
+      - 5432:5432
+    networks:
+       - overlay

@@ -8,6 +8,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-22.04
+    container: ubuntu:22.04
     services:
       # Label used to access the service container
       postgres:

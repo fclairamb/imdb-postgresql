@@ -32,7 +32,7 @@ jobs:
     - run: ./build.py -H postgres -f
     - uses: xresloader/upload-to-github-release@v1.3.11
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.GH_PAT }}
       with:
         file: "*.xz"
         tags: true

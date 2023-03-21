@@ -74,5 +74,5 @@ for dataset in DATASETS:
     if not os.path.exists(sql_file) :
         continue
 
-    os.system(f'psql -f {sql_file} -U postgres -d postgres -h localhost -p 5432')
+    os.system(f'psql -f {sql_file} -U {PG_USER} -d {PG_DB} -h {PG_HOST} -p {PG_PORT}')
 

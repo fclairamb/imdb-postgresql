@@ -8,7 +8,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-22.04
-    container: alpine:3.17.2
+    container: postgres:15.2-alpine
     services:
       # Label used to access the service container
       postgres:
@@ -24,12 +24,13 @@ jobs:
           --health-timeout 5s
           --health-retries 5
     steps:
-    - run: apk add --no-cache git python3 curl postgresql14-client xz
+    - run: apk add --no-cache git python3 curl xz
     - uses: actions/checkout@v3.4.0
     #- uses: actions/setup-python@v4.0.0
     #  with:
     #    python-version: '3.11'
-    - run: ./build.py -H postgres
+    # We'll set the -f flag is we're not in the "main" branch
+    - run: ./build.py -H postgres ${{ github.ref != 'refs/heads/main' && '-f' || '' }}
     - uses: xresloader/upload-to-github-release@v1.3.11
       env:
         GITHUB_TOKEN: ${{ secrets.GH_PAT }}

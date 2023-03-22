@@ -77,7 +77,7 @@ for dataset in DATASETS:
     if not os.path.exists(sql_file) :
         continue
 
-    system(f'psql -v ON_ERROR_STOP=1 -f {sql_file} -U {PG_USER} -d {PG_DB} -h {PG_HOST} -p {PG_PORT}')
+    system(f'set -o pipefail; psql -v ON_ERROR_STOP=1 -f {sql_file} -U {PG_USER} -d {PG_DB} -h {PG_HOST} -p {PG_PORT}')
 
 system(f'pg_dump -U {PG_USER} -d {PG_DB} -h {PG_HOST} -p {PG_PORT} | xz > imdb.sql.xz')
 system('ls -lh imdb.sql.xz')

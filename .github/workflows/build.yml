@@ -8,7 +8,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-22.04
-    container: alpine:3.17.2
+    container: postgres:15.2-alpine
     services:
       # Label used to access the service container
       postgres:
@@ -24,7 +24,7 @@ jobs:
           --health-timeout 5s
           --health-retries 5
     steps:
-    - run: apk add --no-cache git python3 curl postgresql14-client xz
+    - run: apk add --no-cache git python3 curl xz
     - uses: actions/checkout@v3.4.0
     #- uses: actions/setup-python@v4.0.0
     #  with:

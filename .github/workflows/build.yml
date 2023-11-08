@@ -31,7 +31,7 @@ jobs:
     #    python-version: '3.11'
     # We'll set the -f flag is we're not in the "main" branch
     - run: ./build.py -H postgres ${{ github.ref != 'refs/heads/main' && '-f' || '' }}
-    - uses: xresloader/upload-to-github-release@v1.4.0
+    - uses: xresloader/upload-to-github-release@v1.4.2
       env:
         GITHUB_TOKEN: ${{ secrets.GH_PAT }}
       with:

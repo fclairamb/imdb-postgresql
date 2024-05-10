@@ -8,12 +8,12 @@ on:
 jobs:
   build:
     runs-on: ubuntu-22.04
-    container: postgres:15.6-alpine
+    container: postgres:15.7-alpine
     services:
       # Label used to access the service container
       postgres:
         # Docker Hub image
-        image: postgres:15.6-alpine
+        image: postgres:15.7-alpine
         # Provide the password for postgres
         env:
           POSTGRES_PASSWORD: postgres

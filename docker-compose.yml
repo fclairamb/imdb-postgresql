@@ -5,7 +5,7 @@ services:
   server:
     container_name: pg-demo
     #     image: postgres:14.6-alpine
-    image: postgres:15.7-alpine # ghcr.io/baosystems/postgis:14-3.3
+    image: postgres:15.11-alpine # ghcr.io/baosystems/postgis:14-3.3
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres

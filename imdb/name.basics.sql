@@ -3,7 +3,7 @@ drop table if exists name_basics;
 
 create table name_basics (
     nconst text not null,
-    primaryName text not null,
+    primaryName text,
     birthYear text,
     deathYear text,
     primaryProfession text,
